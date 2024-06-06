@@ -70,16 +70,22 @@ function App() {
     <main className="flex flex-col min-h-[80vh] items-center justify-center max-w-xl w-full mx-auto ">
       <h1 className="text-4xl font-bold text-red-600">Kyzaww|AI</h1>
       <form className="flex flex-col gap-4 py-4 w-full">
-        <input
-          type="text"
+        <textarea
           className="border-2 border-red-600 rounded-md p-2"
           placeholder="Masukkan Pertanyaan"
           id="content"
+          rows="1"
+          style={{ overflowY: 'auto', maxHeight: '500px' }}
           onKeyDown={(event) => {
-            if (event.key === 'Enter') {
+            if (event.key === 'Enter' && !event.shiftKey) {
               event.preventDefault();
               handleSubmit();
             }
+          }}
+          onInput={(event) => {
+            const target = event.target;
+            target.style.height = 'auto';
+            target.style.height = `${Math.min(target.scrollHeight, 500)}px`;
           }}
         />
         <button
